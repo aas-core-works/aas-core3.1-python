@@ -82,7 +82,7 @@ def main() -> int:
     pinned_url = f"https://raw.githubusercontent.com/{OWNER}/{REPO}/{sha}/{FILEPATH}"
     banner = f"# Downloaded from: {pinned_url}\n"
 
-    out_path = this_dir / "v3_1.py"
+    out_path = this_dir / "meta_model.py"
     # Overwrite unconditionally.
     out_path.write_text(f"{banner}{content.rstrip()}\n\n{banner}", encoding="utf-8")
 
