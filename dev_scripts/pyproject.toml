@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dev-scripts"
+version = "0.1.0"
+description = "Development scripts for aas-core3.1."
+authors = [
+    { name = "Tobias Langer", email = "tobias.langer@conplement.de" }
+]
+requires-python = ">=3.9"
+dependencies = [
+  "black==25.1.0",
+  "mypy==1.18.1",
+  "pylint==3.3.8",
+  "requests==2.32.4",
+  "types-requests==2.32.4.20250913",
+  "aas-core-codegen @ git+file:///home/tlanger/Projects/aas/aas-core-sdk/aas-core-codegen",
+]
+
+[tool.setuptools]
+packages = ["code_gen"]

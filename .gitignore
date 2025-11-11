@@ -1,7 +1,6 @@
 # aas core meta model data
 
 dev_scripts/code_gen/meta_model.py
-dev_scripts/code_gen/snippets
 
 .idea/
 .claude/

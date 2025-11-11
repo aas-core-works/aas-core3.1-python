@@ -37,7 +37,9 @@ def _latest_commit_sha_for_path(
 
     commits = resp.json()
     if not commits or not isinstance(commits, list):
-        raise RuntimeError("Could not determine latest commit SHA (empty API response).")
+        raise RuntimeError(
+            "Could not determine latest commit SHA (empty API response)."
+        )
 
     sha = commits[0].get("sha")
     if not sha or not isinstance(sha, str):
@@ -57,8 +59,7 @@ def _download_raw_from_commit(
         resp.raise_for_status()
     except requests.HTTPError as ex:
         raise RuntimeError(
-            f"Failed to download file from {raw_url} "
-            f"({resp.status_code}): {resp.text}"
+            f"Failed to download file from {raw_url} ({resp.status_code}): {resp.text}"
         ) from ex
     # We expect Python source, decode as text.
     return resp.text
