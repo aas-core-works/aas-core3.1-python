@@ -42,14 +42,3 @@ version = { attr = "aas_core3_1.__version__" }
 
 [tool.setuptools.package-data]
 "aas_core3_1" = ["py.typed"]
-
-[project.optional-dependencies]
-dev = [
-    "black==25.1.0",
-    "mypy==1.18.1",
-    "pylint==3.3.8",
-    "dev-scripts",
-]
-
-[tool.uv.sources]
-dev-scripts = { path = "dev_scripts" }
