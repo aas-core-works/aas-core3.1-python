@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=70", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aas-core3.1-python"
+dynamic = ["version"]
+description = "Manipulate, verify and de/serialize asset administration shells V3.1 in Python."
+readme = { file = "README.rst", content-type = "text/x-rst" }
+requires-python = ">=3.9"
+license-files = ["LICENSE"]
+authors = [
+  { name = "Marko Ristin", email = "marko@ristin.ch" },
+  { name = "Tobias Langer", email = "tobias.langer@conplement.de" },
+]
+keywords = [
+  "asset", "administration", "shell", "sdk",
+  "industry 4.0", "industrie", "i4.0", "iot", "iiot"
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Typing :: Typed"
+]
+
+[project.urls]
+Homepage = "https://github.com/aas-core-works/aas-core3.1-python"
+Repository = "https://github.com/aas-core-works/aas-core3.1-python"
+Issues = "https://github.com/aas-core-works/aas-core3.1-python/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["aas_core3_1*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "aas_core3_1.__version__" }
+
+[tool.setuptools.package-data]
+"aas_core3_1" = ["py.typed"]
