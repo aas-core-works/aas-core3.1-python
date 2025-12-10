@@ -1,4 +1,4 @@
-Welcome to aas-core3.0's documentation!
+Welcome to aas-core3.1's documentation!
 ==================================================
 
 Table of Contents
