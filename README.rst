@@ -17,7 +17,7 @@ aas-core3.1-python
 .. image:: https://img.shields.io/pypi/pyversions/aas-core3.1.svg
     :alt: PyPI - Python Version
 
-.. image:: https://readthedocs.org/projects/aas-core3_1-python/badge/?version=latest
+.. image:: https://readthedocs.org/projects/aas-core31-python/badge/?version=latest
     :target: https://aas-core31-python.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation
 
