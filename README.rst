@@ -18,10 +18,10 @@ aas-core3.1-python
     :alt: PyPI - Python Version
 
 .. image:: https://readthedocs.org/projects/aas-core3_1-python/badge/?version=latest
-    :target: https://aas-core30-python.readthedocs.io/en/latest/?badge=latest
+    :target: https://aas-core31-python.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation
 
-This is a software development kit (SDK) to manipulate, verify and de/serialize Asset Administration Shells based on the version 3.0 of the meta-model.
+This is a software development kit (SDK) to manipulate, verify and de/serialize Asset Administration Shells based on the version 3.1 of the meta-model.
 
 The documentation is available on: https://aas-core3_1-python.readthedocs.io/en/latest/.
 
@@ -31,4 +31,4 @@ If you want to contribute, see our `contributing guide`_.
 
 .. _aas-core-codegen: https://github.com/aas-core-works/aas-core-codegen
 
-.. _contributing guide: https://aas-core30-python.readthedocs.io/en/latest/contributing.html
+.. _contributing guide: https://aas-core31-python.readthedocs.io/en/latest/contributing.html
