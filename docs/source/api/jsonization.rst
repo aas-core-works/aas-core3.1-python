@@ -1,5 +1,5 @@
 *************************
-aas_core3.jsonization
+aas_core3_1.jsonization
 *************************
 
 .. automodule:: aas_core3_1.jsonization

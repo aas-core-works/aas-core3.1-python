@@ -1,5 +1,5 @@
 *******************
-aas_core3.types
+aas_core3_1.types
 *******************
 
 .. automodule:: aas_core3_1.types
