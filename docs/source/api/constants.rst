@@ -1,5 +1,5 @@
 ***********************
-aas_core3.constants
+aas_core3_1.constants
 ***********************
 
 .. automodule:: aas_core3_1.constants

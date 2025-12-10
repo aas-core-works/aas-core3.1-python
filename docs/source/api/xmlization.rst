@@ -1,5 +1,5 @@
 ************************
-aas_core3.xmlization
+aas_core3_1.xmlization
 ************************
 
 .. automodule:: aas_core3_1.xmlization

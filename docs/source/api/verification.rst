@@ -1,5 +1,5 @@
 **************************
-aas_core3.verification
+aas_core3_1.verification
 **************************
 
 .. automodule:: aas_core3_1.verification

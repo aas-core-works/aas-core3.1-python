@@ -1,5 +1,5 @@
 ********************
-aas_core3.common
+aas_core3_1.common
 ********************
 
 .. automodule:: aas_core3_1.common

@@ -1,5 +1,5 @@
 *****************************
-aas_core3.stringification
+aas_core3_1.stringification
 *****************************
 
 .. automodule:: aas_core3_1.stringification
