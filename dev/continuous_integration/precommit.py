@@ -111,7 +111,7 @@ def main() -> int:
             "dev/dev_scripts",
         ]
 
-        reformat_exclude = "dev/dev_scripts/codegen/(snippets|meta_model.py)"
+        reformat_exclude = "dev/dev_scripts/codegen"
 
         if overwrite:
             exit_code = call_and_report(
@@ -145,7 +145,7 @@ def main() -> int:
             "dev/dev_scripts",
         ]
 
-        mypy_exclude = "dev/dev_scripts/codegen/(snippets|meta_model.py)"
+        mypy_exclude = "dev/dev_scripts/codegen"
 
         config_file = pathlib.Path("dev/continuous_integration/mypy.ini")
 
@@ -177,7 +177,7 @@ def main() -> int:
             "dev/dev_scripts",
         ]
 
-        pylint_ignore = "dev/dev_scripts/codegen/(snippets|meta_model.py)"
+        pylint_ignore = "dev/dev_scripts/codegen"
 
         rcfile = pathlib.Path("dev/continuous_integration/pylint.rc")
 
