@@ -108,7 +108,7 @@ def _regenerate_code(our_repo: pathlib.Path) -> Optional[int]:
 
     Return an error code, if any.
     """
-    codegen_dir = our_repo / "dev_scripts/codegen"
+    codegen_dir = our_repo / "dev/dev_scripts/codegen"
 
     meta_model_path = codegen_dir / "meta_model.py"
 
@@ -143,7 +143,7 @@ def _reformat_code(our_repo: pathlib.Path) -> None:
     """Reformat the generated code."""
     print("Re-formatting the code...")
 
-    precommit_script = our_repo / "continuous_integration/precommit.py"
+    precommit_script = our_repo / "dev/continuous_integration/precommit.py"
 
     subprocess.check_call(
         [sys.executable, str(precommit_script), "--select", "reformat", "--overwrite"],
@@ -162,25 +162,7 @@ def _run_tests_and_rerecord(our_repo: pathlib.Path) -> Optional[int]:
     env = os.environ.copy()
     env["AAS_CORE3_1_PYTHON_TESTS_RECORD_MODE"] = "true"
 
-    # NOTE (mristin):
-    # We need to include the repository root on the PYTHNPATH since the newer
-    # versions of Python (such as 3.11 and 3.12) exclude ``tests/`` from it --
-    # they rely on pyproject.toml excluding them in ``find_package``:
-    #
-    # ``packages=find_packages(exclude=["tests", ...]),``
-    #
-    # . This means that the ``tests`` module will not be on the Python path, as newer
-    # versions of setuptools only put packages explicitly found by ``find_packages``.
-
-    python_path = env.get("PYTHONPATH", None)
-    if python_path is None:
-        python_path = str(our_repo)
-    else:
-        python_path = f"{python_path}{os.pathsep}{str(our_repo)}"
-
-    env["PYTHONPATH"] = python_path
-
-    test_files = sorted((our_repo / "tests").glob("**/test_*.py"))
+    test_files = sorted((our_repo / "dev/tests").glob("**/test_*.py"))
 
     # pylint: disable=consider-using-with
     calls = [
@@ -265,7 +247,7 @@ _AAS_CORE_CODEGEN_SHA_RE = re.compile(
 
 
 def _get_codegen_revision(our_repo: pathlib.Path) -> str | None:
-    pyproject_toml_path = our_repo / "dev_scripts/pyproject.toml"
+    pyproject_toml_path = our_repo / "dev/dev_scripts/pyproject.toml"
 
     codegen_sha: str | None = None
 
@@ -297,7 +279,7 @@ _AAS_CORE_META_SHA_RE = re.compile(
 
 
 def _get_meta_model_revision(our_repo: pathlib.Path) -> str | None:
-    meta_model_path = our_repo / "dev_scripts/codegen/meta_model.py"
+    meta_model_path = our_repo / "dev/dev_scripts/codegen/meta_model.py"
 
     meta_model_sha: str | None = None
 
@@ -326,7 +308,7 @@ def _get_meta_model_revision(our_repo: pathlib.Path) -> str | None:
 def main() -> int:
     """Execute the main routine."""
     this_path = pathlib.Path(os.path.realpath(__file__))
-    our_repo = this_path.parent.parent
+    our_repo = this_path.parent.parent.parent
 
     parser = argparse.ArgumentParser(description=__doc__)
 

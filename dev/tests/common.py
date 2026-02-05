@@ -13,10 +13,10 @@ from typing import Union, Sequence
 import aas_core3_1.common as aas_common
 import aas_core3_1.types as aas_types
 
-_REPO_ROOT = pathlib.Path(os.path.realpath(__file__)).parent.parent
+_REPO_ROOT = pathlib.Path(os.path.realpath(__file__)).parent.parent.parent
 
 #: Path to the directory which contains input and golden files
-TEST_DATA_DIR = _REPO_ROOT / "test_data"
+TEST_DATA_DIR = _REPO_ROOT / "dev/test_data"
 
 #: If set, the golden files in the tests should be re-recorded instead
 #: of checked against.

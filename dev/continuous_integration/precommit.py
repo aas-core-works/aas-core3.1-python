@@ -23,7 +23,7 @@ class Step(enum.Enum):
     PYLINT = "pylint"
     TEST = "test"
     DOCTEST = "doctest"
-    CHECK_INIT_AND_PYPROJECT_TOML_COINCIDE = "check-init-and-pyproject-coincide"
+    CHECK_INIT_AND_PYPROJECT_TOML_CONSISTENT = "check-init-and-pyproject-consistent"
 
 
 def call_and_report(
@@ -100,20 +100,25 @@ def main() -> int:
     )
     skips = [Step(value) for value in args.skip] if args.skip is not None else []
 
-    repo_root = pathlib.Path(os.path.realpath(__file__)).parent.parent
+    repo_root = pathlib.Path(os.path.realpath(__file__)).parent.parent.parent
 
     if Step.REFORMAT in selects and Step.REFORMAT not in skips:
         print("Re-formatting...")
         reformat_targets = [
             "aas_core3_1",
-            "continuous_integration",
-            "tests",
+            "dev/continuous_integration",
+            "dev/tests",
+            "dev/dev_scripts",
         ]
+
+        reformat_exclude = "dev/dev_scripts/codegen/(snippets|meta_model.py)"
 
         if overwrite:
             exit_code = call_and_report(
                 verb="black",
-                cmd=[sys.executable, "-m", "black"] + reformat_targets,
+                cmd=[sys.executable, "-m", "black"]
+                + reformat_targets
+                + ["--exclude", reformat_exclude],
                 cwd=repo_root,
             )
             if exit_code != 0:
@@ -121,7 +126,9 @@ def main() -> int:
         else:
             exit_code = call_and_report(
                 verb="check with black",
-                cmd=[sys.executable, "-m", "black", "--check"] + reformat_targets,
+                cmd=[sys.executable, "-m", "black", "--check"]
+                + reformat_targets
+                + ["--exclude", reformat_exclude],
                 cwd=repo_root,
             )
             if exit_code != 0:
@@ -133,10 +140,14 @@ def main() -> int:
         print("Mypy'ing...")
         mypy_targets = [
             "aas_core3_1",
-            "tests",
-            "continuous_integration",
+            "dev/tests",
+            "dev/continuous_integration",
+            "dev/dev_scripts",
         ]
-        config_file = pathlib.Path("continuous_integration") / "mypy.ini"
+
+        mypy_exclude = "dev/dev_scripts/codegen/(snippets|meta_model.py)"
+
+        config_file = pathlib.Path("dev/continuous_integration/mypy.ini")
 
         exit_code = call_and_report(
             verb="mypy",
@@ -148,7 +159,8 @@ def main() -> int:
                 "--config-file",
                 str(config_file),
             ]
-            + mypy_targets,
+            + mypy_targets
+            + ["--exclude", mypy_exclude],
             cwd=repo_root,
         )
         if exit_code != 0:
@@ -160,14 +172,20 @@ def main() -> int:
         print("Pylint'ing...")
         pylint_targets = [
             "aas_core3_1",
-            "tests",
-            "continuous_integration",
+            "dev/tests",
+            "dev/continuous_integration",
+            "dev/dev_scripts",
         ]
-        rcfile = pathlib.Path("continuous_integration") / "pylint.rc"
+
+        pylint_ignore = "dev/dev_scripts/codegen/(snippets|meta_model.py)"
+
+        rcfile = pathlib.Path("dev/continuous_integration/pylint.rc")
 
         exit_code = call_and_report(
             verb="pylint",
-            cmd=[sys.executable, "-m", "pylint", f"--rcfile={rcfile}"] + pylint_targets,
+            cmd=[sys.executable, "-m", "pylint", f"--rcfile={rcfile}"]
+            + pylint_targets
+            + [f"--ignore-paths={pylint_ignore}"],
             cwd=repo_root,
         )
         if exit_code != 0:
@@ -193,7 +211,7 @@ def main() -> int:
                 "unittest",
                 "discover",
                 "--start-directory",
-                "tests",
+                "dev/tests",
             ],
             cwd=repo_root,
             env=env,
@@ -214,9 +232,10 @@ def main() -> int:
     if Step.DOCTEST in selects and Step.DOCTEST not in skips:
         print("Doctest'ing...")
 
-        # BEFORE-RELEASE (mristin, 2021-12-13):
-        #  Add ``{repo_root}/docs/source/**/*.rst`` as well here
-        doc_files = ["README.rst"]
+        doc_files = sorted(
+            ["README.rst"]
+            + [str(path) for path in (repo_root / "docs" / "source").glob("**/*.rst")]
+        )
 
         exit_code = call_and_report(
             verb="doctest",
@@ -226,11 +245,11 @@ def main() -> int:
         if exit_code != 0:
             return 1
 
-        for pth in (repo_root / "aas_core3").glob("**/*.py"):
+        for pth in (repo_root / "aas_core3_1").glob("**/*.py"):
             if pth.name == "__main__.py":
                 continue
 
-            # NOTE (mristin, 2021-12-27):
+            # NOTE (mristin):
             # The subprocess calls are expensive, call only if there is an actual
             # doctest
             text = pth.read_text(encoding="utf-8")
@@ -246,24 +265,22 @@ def main() -> int:
         print("Skipped doctest'ing.")
 
     if (
-        Step.CHECK_INIT_AND_PYPROJECT_TOML_COINCIDE in selects
-        and Step.CHECK_INIT_AND_PYPROJECT_TOML_COINCIDE not in skips
+        Step.CHECK_INIT_AND_PYPROJECT_TOML_CONSISTENT in selects
+        and Step.CHECK_INIT_AND_PYPROJECT_TOML_CONSISTENT not in skips
     ):
-        print("Checking that aas_core3/__init__.py and pyproject.toml coincide...")
+        print("Checking that __init__.py and pyproject.toml are consistent...")
         exit_code = call_and_report(
-            verb="check that aas_core3/__init__.py and pyproject.toml coincide",
+            verb="check that __init__.py and pyproject.toml are consistent",
             cmd=[
                 sys.executable,
-                "continuous_integration/check_init_and_pyproject_toml_coincide.py",
+                "dev/continuous_integration/check_init_and_pyproject_toml_consistent.py",
             ],
             cwd=repo_root,
         )
         if exit_code != 0:
             return 1
     else:
-        print(
-            "Skipped checking that aas_core3/__init__.py and pyproject.toml coincide."
-        )
+        print("Skipped checking that __init__.py and pyproject.toml are consistent.")
 
     return 0
 

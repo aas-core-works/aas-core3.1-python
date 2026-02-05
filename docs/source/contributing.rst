@@ -32,8 +32,9 @@ To re-generate the code, run:
 
 .. code-block::
     
-    pip3 install --editable . --group dev_scripts/pyproject.toml:dev dev_scripts
-    python dev_scripts/update_to_aas_core_meta_codegen.py
+    pip3 install --editable .
+    pip3 install --editable dev/
+    python dev/dev_scripts/update_to_aas_core_meta_codegen.py
 
 Pre-commit Checks
 =================
@@ -43,29 +44,20 @@ Run in your virtual environment:
 
 .. code-block::
 
-    pip3 install --editable . --group pyproject.toml:dev
+    pip3 install --editable dev/
 
 Now you can execute the checks (from the repository root):
 
 .. code-block::
 
-    python continuous_integration/precommit.py
+    python dev/continuous_integration/precommit.py
 
 Some of the checks, such as formatting, can be automatically fixed.
 If you want self-healing checks, run:
 
 .. code-block::
 
-    python continuous_integration/precommit.py --overwrite
-
-The pre-commit checks for the development tools are managed separately in
-`dev_scripts/continuous_integration_of_dev_scripts`. You can install and run them
-in a similar manner from your root directory:
-
-.. code-block::
-
-    pip3 install --editable dev_scripts --group dev_scripts/pyproject.toml:dev
-    python dev_scripts/continuous_integration_of_dev_scripts/precommit.py
+    python dev/continuous_integration/precommit.py --overwrite
 
 Pull Requests
 =============
