@@ -27,10 +27,11 @@ jobs:
           python3 -m pip install --upgrade pip
           pip3 install --upgrade coveralls
           pip3 install -e .
+          pip3 install -e dev/
 
       - name: Run tests
         run: |
-          python3 continuous_integration/precommit.py --select test
+          python3 dev/continuous_integration/precommit.py --select test
 
       - name: Upload Coverage
         run: coveralls --service=github
@@ -58,11 +59,12 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           pip3 install --upgrade coveralls
-          pip3 install -e . --group pyproject.toml:dev
+          pip3 install -e .
+          pip3 install -e dev/
 
       - name: Run all checks
         run: |
-          python3 continuous_integration/precommit.py
+          python3 dev/continuous_integration/precommit.py
 
       - name: Upload Coverage
         run: coveralls --service=github

@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aas-core3.1-python-dev"
+version = "0.0.1"
+description = "Develop aas-core3.1-python."
+requires-python = ">=3.8"
+
+dependencies = [
+    "black==22.10.0",
+    "coverage>=6.5.0,<7",
+    "mypy==0.982",
+    "pyinstaller>=5,<6",
+    "pylint==2.15.4; python_version<'3.11'",
+    "pylint==4.0.3; python_version>'3.10'",
+    "tomli; python_version<'3.11'",
+    "twine",
+    "requests==2.32.4",
+    "types-requests==2.32.4.20250913",
+]
+
+[tool.setuptools]
+packages = [
+    "tests",
+    "dev_scripts",
+    "continuous_integration"
+]
+
+# NOTE (mristin):
+# We put the configuration of mypy and pylint in separate files as it is a nightmare
+# to configure them with pyproject.toml not living in the current working directory
+# which is the repository root.
