@@ -23935,6 +23935,8 @@ class _Serializer(aas_types.AbstractVisitor):
         else:
             self.stream.write(str(value))
 
+        self._write_end_element(name)
+
     def _write_str_property(self, name: str, value: str) -> None:
         """
         Write the :paramref:`value` of a string property enclosed in
