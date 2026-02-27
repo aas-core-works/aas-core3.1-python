@@ -16,7 +16,7 @@ def main() -> int:
     repo_root = pathlib.Path(os.path.realpath(__file__)).parent.parent.parent
 
     env = os.environ.copy()
-    env["AAS_CORE3_1_PYTHON_TESTS_RECORD_MODE"] = "1"
+    env["AAS_CORE3_1_TESTS_RECORD_MODE"] = "1"
 
     for path in (repo_root / "dev/test_data").iterdir():
         if path.is_dir() and path.name not in ["Json", "Xml"]:
