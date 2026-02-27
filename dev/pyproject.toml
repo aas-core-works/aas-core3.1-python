@@ -19,7 +19,7 @@ dependencies = [
     "twine",
     "requests==2.32.4",
     "types-requests==2.32.4.20250913",
-    "aas-core-codegen==0.0.18.post2"
+    "aas-core-codegen==0.0.19"
 ]
 
 [tool.setuptools]
