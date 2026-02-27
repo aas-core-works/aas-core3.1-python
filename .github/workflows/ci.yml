@@ -33,12 +33,15 @@ jobs:
         run: |
           python3 dev/continuous_integration/precommit.py --select test
 
-      - name: Upload Coverage
-        run: coveralls --service=github
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_FLAG_NAME: ${{ matrix.python-version }}
-          COVERALLS_PARALLEL: true
+# NOTE (mristin, 2026-02-27):
+# The coveralls.io seems to be down for a longer time, so we are disabling it
+# for the moment.
+#      - name: Upload Coverage
+#        run: coveralls --service=github
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          COVERALLS_FLAG_NAME: ${{ matrix.python-version }}
+#          COVERALLS_PARALLEL: true
 
 
   Check-and-test:
@@ -66,23 +69,26 @@ jobs:
         run: |
           python3 dev/continuous_integration/precommit.py
 
-      - name: Upload Coverage
-        run: coveralls --service=github
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_FLAG_NAME: ${{ matrix.python-version }}
-          COVERALLS_PARALLEL: true
-
-
-  Finish-Coveralls:
-    name: Finish Coveralls
-    needs: [Only-test, Check-and-test]
-    runs-on: ubuntu-latest
-    container: python:3-slim
-    steps:
-      - name: Finish Coveralls
-        run: |
-          pip3 install --upgrade coveralls
-          coveralls --finish --service=github
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+# NOTE (mristin, 2026-02-27):
+# The coveralls.io seems to be down for a longer time, so we are disabling it
+# for the moment.
+#      - name: Upload Coverage
+#        run: coveralls --service=github
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          COVERALLS_FLAG_NAME: ${{ matrix.python-version }}
+#          COVERALLS_PARALLEL: true
+#
+#
+#  Finish-Coveralls:
+#    name: Finish Coveralls
+#    needs: [Only-test, Check-and-test]
+#    runs-on: ubuntu-latest
+#    container: python:3-slim
+#    steps:
+#      - name: Finish Coveralls
+#        run: |
+#          pip3 install --upgrade coveralls
+#          coveralls --finish --service=github
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
